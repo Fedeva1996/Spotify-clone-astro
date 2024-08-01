@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeaderMenuItem from "../components/HeaderMenuCard.astro";
+import CardsMenuItem from "../components/CardsMenuItem.astro";
+import { playlists } from "@/lib/data";
+import Greeting from "../components/Greeting.jsx";
+---
+
+<Layout title="Spotify Clone">
+  <div
+    id="playlist-container"
+    class="relative transition-all duration-300 rounded-lg"
+  >
+    <!-- header -->
+    <!-- <div class="realtive z-10 px-6 py-4">
+      <h1 class="text-5xl font-bold text-white">Buenos días</h1>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+        {playlists.map((playlist) => <HeaderMenuItem playlist={playlist} />)}
+      </div>
+    </div> -->
+
+    <!-- Container -->
+    <div class="realtive z-10 px-6 py-4">
+      <Greeting />
+      <div class="flex flex-wrap gap-4 mt-6">
+        {playlists.map((playlist) => <HeaderMenuItem playlist={playlist} />)}
+      </div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-[#121212] to-transparent -z-[1] rounded-lg"
+      >
+      </div>
+    </div>
+    <div class="realtive z-10 px-6 py-4">
+      <h1 class="text-5xl font-bold text-white">Para tí</h1>
+      <div class="flex flex-wrap gap-4 mt-6">
+        {playlists.map((playlist) => <CardsMenuItem playlist={playlist} />)}
+      </div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-[#121212] to-transparent -z-[1] rounded-lg"
+      >
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,93 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Arrow from "@/icons/arrow.astro";
+import { allPlaylists, songs } from "@/lib/data";
+import { CardPlayButton } from "@/components/CardPlayButton";
+import MusicTable from "../../components/MusicTable.astro";
+
+const { id } = Astro.params;
+
+const playlist = allPlaylists.find((playlist) => playlist.id === id);
+
+console.log(playlist);
+
+//console.log(playlist);
+const playListSongs = songs.filter(
+  (song) => song.albumId === playlist?.albumId
+);
+const durationInSeconds = (duration: string): number => {
+  const parts = duration.split(":").map(Number);
+  if (parts.length === 2) {
+    // Si la duración solo tiene minutos y segundos
+    return parts[0] * 60 + parts[1]; // Convertir a segundos
+  } else if (parts.length === 3) {
+    // Si la duración incluye horas, minutos y segundos
+    return parts[0] * 3600 + parts[1] * 60 + parts[2]; // Convertir a segundos
+  } else {
+    return 0; // Duración inválida
+  }
+};
+const formatDuration = (totalSeconds: number): string => {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  if (hours > 0) {
+    return `${hours} h`;
+  } else {
+    return `${minutes} min`;
+  }
+};
+// Calcular la duración total en segundos y formatearla
+const totalDurationInSeconds = playListSongs.reduce(
+  (acc, song) => acc + durationInSeconds(song.duration),
+  0
+);
+const formattedDuration = formatDuration(totalDurationInSeconds);
+//console.log(playlistSongs);
+---
+
+<Layout title={`${playlist?.title} - Spotify Clone`}>
+  <div
+    id="playlist-container"
+    class=`relative transition-all w-full duration-1000 text-gray-400 rounded-lg`
+    transition:name=`playlist ${id} box alternative`
+    style=`background-image: linear-gradient(180deg, ${playlist?.color?.accent}90, rgba(1, 1, 1, 1) 80%); background-size: cover;`
+  >
+    <!-- header -->
+    <header class=`flex flex-col gap-8 px-6 pt-12`>
+      <picture class="w-full h-72 flex-none">
+        <img
+          src={playlist?.cover}
+          alt=`Cover of ${playlist?.title}`
+          class="object-cover w-full h-full rounded-lg"
+          transition:name=`playlist ${id} image alternative`
+        />
+        <a
+          href="/"
+          class="absolute left-auto top-0 p-2 m-2 rounded-full bg-black/40 hover:bg-black/60 rotate-180"
+          ><Arrow />
+        </a>
+        <h4
+          class="m-auto absolute left-auto top-48 p-4 text-2xl lg:text-5xl text-white font-bold py-2 w-auto"
+          transition:name=`playlist ${id} text alternative`
+        >
+          {playlist?.title}
+        </h4>
+        <h2
+          class="m-auto absolute left-auto top-60 p-4 text-sm lg:text-md py-2 w-auto"
+          transition:name=`playlist ${id} artists alternative`
+        >
+          {playlist?.artists.join(", ")}
+        </h2>
+        <p
+          class="m-auto absolute left-auto top-64 p-4 text-sm lg:text-md py-2 w-auto"
+        >
+          <span class="text-white">50 canciones</span>, 3 h aproximadamente.
+        </p>
+      </picture>
+      <div class="p-4">
+        <CardPlayButton id={id} size="large" client:visible />
+      </div>
+    </header>
+    <MusicTable songs={playListSongs} />
+  </div>
+</Layout>
