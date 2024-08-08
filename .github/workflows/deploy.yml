@@ -17,7 +17,7 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: pnpm build
+        run: npm build
 
       - name: Deploy to Vercel
         run: npx vercel --prod --token=$VERCEL_TOKEN
