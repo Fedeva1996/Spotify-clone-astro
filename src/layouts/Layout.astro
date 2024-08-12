@@ -23,7 +23,7 @@ const { title } = Astro.props;
   </head>
   <body>
     <div id="app" class="relative h-screen w-full p-2 gap-2">
-      <aside class="[grid-area:aside] flex-col flex">
+      <aside class="[grid-area:aside] flex-col md:flex hidden">
         <Aside />
       </aside>
 
@@ -42,10 +42,28 @@ const { title } = Astro.props;
   #app {
     display: grid;
     grid-template-areas:
-      "aside main main"
-      "player player player";
-    grid-template-columns: 350px 1fr;
-    grid-template-rows: 1fr auto;
+    "main main"
+    "player player";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr ;
+  }
+  @media (min-width: 768px) {
+    #app {
+      grid-template-areas:
+        "aside main main"
+        "player player player";
+      grid-template-columns: 250px 1fr auto;
+      grid-template-rows: 1fr auto;
+    }
+  }
+  @media (min-width: 1024px) {
+    #app {
+      grid-template-areas:
+        "aside main main"
+        "player player player";
+      grid-template-columns: 350px 1fr auto;
+      grid-template-rows: 1fr auto;
+    }
   }
 </style>
 <style is:global>
