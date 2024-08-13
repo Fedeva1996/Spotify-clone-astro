@@ -53,7 +53,7 @@ const formattedDuration = formatDuration(totalDurationInSeconds);
     style=`background-image: linear-gradient(180deg, ${playlist?.color?.accent}90, rgba(1, 1, 1, 1) 80%); background-size: cover;`
   >
     <!-- header -->
-    <header class=`flex flex-col gap-8 px-6 pt-12`>
+    <header class=`flex flex-col gap-1 sm:gap-8 px-6 pt-12`>
       <picture class="w-full h-72 flex-none">
         <img
           src={playlist?.cover}
@@ -67,27 +67,27 @@ const formattedDuration = formatDuration(totalDurationInSeconds);
           ><Arrow />
         </a>
         <h4
-          class="m-auto absolute left-auto top-48 p-4 text-2xl lg:text-5xl text-white font-bold py-2 w-auto"
+          class="m-auto absolute left-auto top-56 sm:top-52 p-4 text-2xl lg:text-5xl text-white font-bold py-2 w-auto"
           transition:name=`playlist ${id} text alternative`
         >
           {playlist?.title}
         </h4>
         <h2
-          class="m-auto absolute left-auto top-60 p-4 text-sm lg:text-md py-2 w-auto"
+          class="m-auto absolute left-auto top-64 p-4 text-sm lg:text-md py-2 w-auto"
           transition:name=`playlist ${id} artists alternative`
         >
           {playlist?.artists.join(", ")}
         </h2>
         <p
-          class="m-auto absolute left-auto top-64 p-4 text-sm lg:text-md py-2 w-auto"
+          class="m-auto absolute left-auto top-72 p-4 text-sm lg:text-md py-2 w-auto"
         >
           <span class="text-white">50 canciones</span>, 3 h aproximadamente.
         </p>
       </picture>
-      <div class="p-4">
+      <div class="py-4 sm:p-4">
         <CardPlayButton id={id} size="large" client:visible />
       </div>
     </header>
-    <MusicTable songs={playListSongs} />
+    <MusicTable id={id} songs={playListSongs} />
   </div>
 </Layout>

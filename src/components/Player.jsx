@@ -4,7 +4,7 @@ import { Slider } from "./Slider";
 
 const CurretSong = ({ image, title, artists }) => {
   return (
-    <div className="flex items-center gap-5 relative overflow-hidden lg:min-w-52">
+    <div className="flex items-center gap-2 sm:gap-5 relative overflow-hidden">
       <picture className="w-14 h-14 rounded-md shadow-lg bg-gray-500 overflow-hidden">
         {image ? (
           <img src={image} alt="Cover de la canción" />
@@ -50,7 +50,7 @@ const SongControl = ({ audio }) => {
         value={[currentTime]}
         max={audio?.current?.duration ?? 0}
         min={0}
-        className="w-[120px] md:w-[400px]"
+        className="w-[150px] md:w-[250px] lg:w-[350px] xl:w-[450px]"
         disabled={!audio}
         onValueChange={(value) => {
           const [newValue] = value;
@@ -99,7 +99,7 @@ const VolumeControl = () => {
         defaultValue={[100]}
         max={100}
         min={0}
-        className="w-[60px] md:w-[95px]"
+        className="w-[95px]"
         value={[volume * 100]}
         onValueChange={(value) => {
           const [newVolume] = value;
@@ -166,10 +166,10 @@ export function Player() {
 
   return (
     <div className="flex flex-row justify-between w-full px-5 z-50 align-middle">
-      <div className="flex flex-row gap-4 w-auto md:w-96">
+      <div className="flex flex-row gap-4 w-1/3">
         <CurretSong {...currentMusic.song} />
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-1 flex-col justify-center items-center w-1/3">
         <div>
           <button
             className="transition-all duration-300 hover:scale-105 fill-gray-200 px-5 hover:fill-white"
@@ -196,7 +196,7 @@ export function Player() {
         <SongControl audio={audioRef} />
         <audio ref={audioRef} />
       </div>
-      <div className="flex flex-row justify-end w-auto md:w-96">
+      <div className="hidden sm:flex flex-row justify-end w-1/3">
         <VolumeControl />
       </div>
     </div>

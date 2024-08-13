@@ -54,7 +54,7 @@ const formattedDuration = formatDuration(totalDurationInSeconds);
     <header
       class=`px-6 bg-gradient-to-b from-slate-transparent to-black rounded-lg`
     >
-      <div class="flex flex-row gap-4 pb-8 pt-2">
+      <div class="flex flex-row pb-2 sm:pb-8 pt-2">
         <a
           href="/"
           class="p-2 m-2 rounded-full bg-red bg-black/30 hover:bg-black/50"
@@ -62,8 +62,8 @@ const formattedDuration = formatDuration(totalDurationInSeconds);
           <Arrow />
         </a>
       </div>
-      <div class="flex flex-row gap-8">
-        <picture class="w-60 h-w-60 flex-none shadow-xl">
+      <div class="flex flex-col sm:flex-row gap-8">
+        <picture class="w-60 h-w-60 flex-none shadow-xl mx-auto sm:mx-0">
           <img
             src={playlist?.cover}
             alt=`Cover of ${playlist?.title}`
@@ -71,31 +71,36 @@ const formattedDuration = formatDuration(totalDurationInSeconds);
             transition:name=`playlist ${id} image`
           />
         </picture>
-        <div class="flex flex-col self-end">
-          <span class="w-auto">Playlist</span>
-          <h4
-            class="text-2xl lg:text-5xl text-white font-bold py-1 w-auto"
-            transition:name=`playlist ${id} text`
-          >
-            {playlist?.title}
-          </h4>
-          <h2
-            class="text-sm lg:text-md py-1 w-auto"
-            transition:name=`playlist ${id} artists`
-          >
-            {playlist?.artists.join(", ")}
-          </h2>
-          <p class="text-sm lg:text-md py-2 w-auto">
-            <span class="text-white">{playListSongs.length} canciones</span>, {
-              formattedDuration
-            } aproximadamente.
-          </p>
+        <div class="flex flex-row gap-4">
+          <div class="flex flex-col sm:self-end">
+            <span class="w-auto">Playlist</span>
+            <h4
+              class="text-2xl lg:text-5xl text-white font-bold py-1 w-auto"
+              transition:name=`playlist ${id} text`
+            >
+              {playlist?.title}
+            </h4>
+            <h2
+              class="text-sm lg:text-md py-1 w-auto"
+              transition:name=`playlist ${id} artists`
+            >
+              {playlist?.artists.join(", ")}
+            </h2>
+            <p class="text-sm lg:text-md py-2 w-auto">
+              <span class="text-white">{playListSongs.length} canciones</span>, {
+                formattedDuration
+              } aproximadamente.
+            </p>
+          </div>
+          <div class="block sm:p-4 sm:hidden my-auto">
+            <CardPlayButton id={id} size="large" client:visible />
+          </div>
         </div>
       </div>
-      <div class="p-4">
+      <div class="hidden sm:p-4 sm:block">
         <CardPlayButton id={id} size="large" client:visible />
       </div>
     </header>
-    <MusicTable songs={playListSongs} />
+    <MusicTable id={id} songs={playListSongs} />
   </div>
 </Layout>
