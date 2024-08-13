@@ -34,7 +34,7 @@ importers:
         specifier: ^18.3.0
         version: 18.3.0
       astro:
-        specifier: ^4.12.2
+        specifier: ^4.12.3
         version: 4.12.3(typescript@5.5.4)
       clsx:
         specifier: ^2.1.1
